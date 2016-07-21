@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.objectFactory" value="spring"></constant>
+	<constant name="struts.i18n.encoding" value="utf-8"></constant>
+	<constant name="struts.convention.result.path" value="/WebContent/" />
+	<package name="bookstore" extends="struts-default">
+
+		<action name="login" class="userAction" method="login">
+			<result name="success">/userpage.jsp</result>
+			<result name="admin">/administrator.jsp</result>
+			<result name="fail">/error.jsp</result>
+		</action>
+
+		<action name="register" class="userAction" method="register">
+			<result name="success">/success.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+	
+		<action name="logout" class="userAction" method="logout">
+			<result name="success">/index.jsp</result>
+		</action>
+		
+		<action name="listUser" class="listUserAction">
+			<result name="success" >/administrator.jsp</result>
+		</action>
+
+		<action name="saveUser" class="ManageUserAction" method="add">
+			<result name="success">/umanage.jsp</result>
+		</action>
+
+		<action name="searchUser" class="searchUserAction" method="ById">
+			<result name="success">/seruser.jsp</result>
+		</action>
+
+		<action name="deleteUser" class="ManageUserAction" method="delete">
+			<result name="success">/umanage.jsp</result>
+		</action>
+
+		<action name="updateUser" class="ManageUserAction" method="update">
+			<result name="success">/umanage.jsp</result>
+		</action>
+
+		<action name="listBook" class="listBookAction">
+			<result name="success" >/browser.jsp</result>
+		</action>
+
+		<action name="saveBook" class="ManageBookAction" method="add">
+			<result name="success">/bmanage.jsp</result>
+		</action>
+
+		<action name="searchBook" class="searchBookAction" method="byId">
+			<result name="success">/serbook.jsp</result>
+		</action>
+	
+		<action name="searchBookN" class="searchBookAction" method="byName">
+			<result name="success">/userpage.jsp</result>
+		</action>
+		
+		<action name="deleteBook" class="ManageBookAction" method="delete">
+			<result name="success">/bmanage.jsp</result>
+		</action>
+
+		<action name="updateBook" class="ManageBookAction" method="update">
+			<result name="success">/bmanage.jsp</result>
+		</action>
+		
+		<action name="ulistBook" class="listBookAction">
+			<result name="success">/userpage.jsp</result>
+		</action>
+		
+		<action name="AddtoCart" class="AddtoCartAction">
+			<result name="success">/userpage.jsp</result>
+		</action>
+		
+		<action name="PayAction" class="OrderAction" method="pay">
+			<result name="success">/userpage.jsp</result>
+		</action>
+		
+		<action name="OrderHistory" class="OrderAction" method="show">
+			<result name="success">/history.jsp</result>
+		</action>
+		
+		<action name="profile" class="ProfileAction" method="upload">
+			<result name="success">/profile.jsp</result>
+		</action>
+	</package>
+</struts>
