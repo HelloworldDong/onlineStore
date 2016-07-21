@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.onlineStore.dao.CartDao">
+<insert id="add" parameterType="Cart">
+		insert into cart(userID,goodsID,number,installment) values(#{userID},#{goodsID},#{number},#{installment})
+	</insert>
+	
+	<select id="search" parameterType="Cart" resultType="Cart">
+		select * from cart where userID= #{userID} and goodsID= #{goodsID} and installment=#{installment}
+	</select>
+	
+	<update id="update" parameterType="Cart">
+	update cart set number=number+#{number} where userID=#{userID} and goodsID= #{goodsID} and installment=#{installment}
+	</update>
+	
+	<select id="show" parameterType="int" resultType="Showcart">
+	select cart.goodsID,number,name,stock,photo,price,category,description,installment from cart,goods where userID=#{userid} and cart.goodsID=goods.goodsId
+	</select>
+	
+	<delete id="delete" parameterType="int" >
+	delete from cart where goodsID=#{goodsID}
+	</delete>
+	
+	<delete id="clear" parameterType="int" >
+	delete from cart where userID=#{userID}
+	</delete>
+	
+	<select id="findAll" parameterType="int" resultType="Cart">
+	select * from cart where userID=#{userID}
+	
+	</select>
+	</mapper>

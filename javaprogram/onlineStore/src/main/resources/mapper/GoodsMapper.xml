@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.onlineStore.dao.GoodsDao">
+
+<resultMap type="Goods" id="goodsMap">
+		<id column="goodsId" property="goodsId"/>
+		<result column="name" property="name"/>
+		<result column="stock" property="stock"/>
+		<result column="photo" property="photo"/>
+		<result column="price" property="price"/>
+		<result column="category" property="category"/>
+		<result column="description" property="description"/>
+		<!-- <association property="" column=""></association> -->
+	</resultMap>
+	
+	<select id="show" parameterType="String"  resultMap="goodsMap">
+		select * from goods where category= #{category} and exist=1
+	</select>
+	
+	<select id="search" parameterType="String"  resultMap="goodsMap">
+		select * from goods where name like #{name} and exist=1
+	</select>
+	
+	<select id="searchById" parameterType="int"  resultType="Goods">
+		select * from goods where goodsId = #{goodsID} and exist=1
+	</select>
+	<select id="findAll" resultType="Goods">
+	select* from goods where exist=1
+	</select>
+	
+	<select id="find" parameterType="int" resultType="Goods">
+	select* from goods where goodsId=#{goodsID} and exist=1
+	</select>
+	<update id="delete" parameterType="int" >
+	update goods set exist=0 where goodsId=#{goodsID}
+	</update>
+	 <insert id="add" parameterType="Goods" useGeneratedKeys="true" keyProperty="goodsId">
+	insert into goods(name,stock,price,category, description) values(#{name},#{stock},#{price},#{category},#{description})
+	</insert>
+	<update id="photo" parameterType="Goods" >
+	update goods set photo=#{photo} where goodsId=#{goodsId}
+	</update>
+	
+	 <update id="update" parameterType="Goods">
+	update  goods set name=#{name},stock=#{stock},price=#{price},category=#{category},description=#{description} where goodsId=#{goodsId}
+	</update>
+	
+	
+	</mapper>

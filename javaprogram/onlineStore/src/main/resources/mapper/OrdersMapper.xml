@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.onlineStore.dao.OrderDao">
+
+
+
+<insert id="add" parameterType="Orders">
+insert into orders(userID,goodsID,number,installment,perIns,orderTime,status,address) value(#{userID},#{goodsID},#{number},#{installment},#{perIns},#{orderTime},#{status},#{address})
+</insert>
+
+<select id="show" parameterType="int" resultType="Showorder">
+	select orderID,photo,name,number,installment,perIns,orderTime,status,address  from orders,goods where userID=#{userID} and orders.goodsID=goods.goodsId
+	</select>
+	
+	<resultMap type="Orders" id="orderMap">
+		<id column="orderID" property="orderID"/>
+		<result column="userID" property="userID"/>
+		<result column="goodsID" property="goodsID"/>
+		<result column="number" property="number"/>
+		<result column="installment" property="installment"/>
+		<result column="perIns" property="perIns"/>
+		<result column="orderTime" property="orderTime"/>
+		<result column="lastTime" property="lastTime"/>
+		<result column="status" property="status"/>
+		<result column="address" property="address"/>
+	</resultMap>
+	
+	
+<select id="findAll" resultMap="orderMap">
+		select * from orders where status=1
+	</select>
+	
+<select id="search" parameterType="int" resultType="Orders">
+select * from orders where orderID=#{orderID}
+</select>
+
+<update id="validate" parameterType="int">
+update orders set status=2 where orderID=#{id}
+</update>
+
+<update id="cancel" parameterType="int">
+update orders set status=0 where orderID=#{orderID}
+</update>
+<update id="reject" parameterType="int">
+update orders set status=3 where orderID=#{id}
+</update>
+</mapper>
